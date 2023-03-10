@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>StarWars likovi</h1>
+    <form id="character-form">
+        <label for="character-name">Unesi ime lika:</label>
+        <input type="text" name="character-name" id="character-name">
+        <button type="submit">Submit</button>
+    </form>
+    <ul id="character-info"></ul>
+
+
+    <script>
+    $(document).ready(function() {
+        $("#character-form").submit(function(event){
+            event.preventDefault();
+            let imeLika= $("#character-name").val();
+            let url= "https://swapi.dev/api/people/?search="+imeLika;
+            $.ajax ({
+                url: url,
+                type:"GET",
+                dataType: "json",
+                sucess: function(data) {
+                    if(data.results.length > 0) {
+                        let lik  = data.results[0];
+                        let likInfo = "";
+                        likInfo +=`<li>Ime: `+lik.name+`</li>`
+                        likInfo +=`<li>Godina rođenja:`+lik.birth_year+`</li>`
+                        likInfo +=`<li>Spol: `+lik.gender+`</li>`
+                        likInfo +=`<li>Boja kose: `+lik.hair_color+`</li>`
+                        likInfo +=`<li>Boja očiju`+lik.eye_color+`</li>`
+                        $("#character-info").html(likInfo);
+                    } else {
+                        $("#character-info").html("<li>Podaci o liku nisu pronađeni</li>")
+                    }
+                },
+                error: function() {
+                    $("#character-info").html("<li>Podaci o liku nisu dohvaćeni</li>")
+                }
+            })
+        });
+    });
+    </script>
+</body>
+</html>
