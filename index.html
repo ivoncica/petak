@@ -15,7 +15,7 @@
         <input type="text" name="character-name" id="character-name">
         <button type="submit">Submit</button>
     </form>
-    <ul id="character-info"></ul>
+    <div id="character-info"></div>
 
 
     <script>
@@ -32,18 +32,18 @@
                     if(data.results.length > 0) {
                         let lik  = data.results[0];
                         let likInfo = "";
-                        likInfo +=`<li>Ime: `+lik.name+`</li>`
-                        likInfo +=`<li>Godina rođenja:`+lik.birth_year+`</li>`
-                        likInfo +=`<li>Spol: `+lik.gender+`</li>`
-                        likInfo +=`<li>Boja kose: `+lik.hair_color+`</li>`
-                        likInfo +=`<li>Boja očiju`+lik.eye_color+`</li>`
+                        likInfo +=`<p>Ime: `+lik.name+`</p>`
+                        likInfo +=`<p>Godina rođenja:`+lik.birth_year+`</p>`
+                        likInfo +=`<p>Spol: `+lik.gender+`</p>`
+                        likInfo +=`<p>Boja kose: `+lik.hair_color+`</p>`
+                        likInfo +=`<p>Boja očiju`+lik.eye_color+`</p>`
                         $("#character-info").html(likInfo);
                     } else {
-                        $("#character-info").html("<li>Podaci o liku nisu pronađeni</li>")
+                        $("#character-info").html("<p>Podaci o liku nisu pronađeni</p>")
                     }
                 },
                 error: function() {
-                    $("#character-info").html("<li>Podaci o liku nisu dohvaćeni</li>")
+                    $("#character-info").html("<p>Podaci o liku nisu dohvaćeni</p>")
                 }
             })
         });
